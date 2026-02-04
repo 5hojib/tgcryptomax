@@ -24,8 +24,6 @@ jobs:
 
       - name: Build wheels
         run: cibuildwheel --output-dir wheelhouse
-        env:
-          CIBW_FREE_THREADED_SUPPORT: 1
 
       - name: Upload wheels to PyPI
         run: uv publish wheelhouse/*.whl
