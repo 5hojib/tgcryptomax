@@ -20,7 +20,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
 
       - name: Install dependencies
-        run: uv pip install --system cibuildwheel
+        run: uv pip install --system cibuildwheel build wheel
 
       - name: Build wheels
         run: cibuildwheel --output-dir wheelhouse
@@ -44,7 +44,7 @@ jobs:
       - uses: astral-sh/setup-uv@v5
 
       - name: Build and Install for testing
-        run: uv pip install --system . pytest
+        run: uv pip install --system . pytest build wheel
 
       - name: Run tests
         run: pytest
