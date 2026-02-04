@@ -1,4 +1,4 @@
-# TgCrypto
+# tgcryptomax
 
 > [!NOTE]
 > The project is no longer maintained or supported. Thanks for appreciating it.
@@ -8,8 +8,8 @@
 
 > Fast and Portable Cryptography Extension Library for Pyrogram
 
-**TgCrypto** is a Cryptography Library written in C as a Python extension. It is designed to be portable, fast,
-easy to install and use. TgCrypto is intended for [Pyrogram](https://github.com/pyrogram/pyrogram) and implements the
+**tgcryptomax** is a Cryptography Library written in C as a Python extension. It is designed to be portable, fast,
+easy to install and use. tgcryptomax is intended for [Pyrogram](https://github.com/pyrogram/pyrogram) and implements the
 cryptographic algorithms Telegram requires, namely:
 
 - **`AES-256-IGE`** - used in [MTProto v2.0](https://core.telegram.org/mtproto).
@@ -23,12 +23,12 @@ cryptographic algorithms Telegram requires, namely:
 ## Installation
 
 ``` bash
-$ pip3 install -U tgcrypto
+$ pip3 install -U tgcryptomax
 ```
 
 ## API
 
-TgCrypto API consists of these six methods:
+tgcryptomax API consists of these six methods:
 
 ```python
 def ige256_encrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...
@@ -50,7 +50,7 @@ def cbc256_decrypt(data: bytes, key: bytes, iv: bytes) -> bytes: ...
 ``` python
 import os
 
-import tgcrypto
+import tgcryptomax
 
 data = os.urandom(10 * 1024 * 1024 + 7)  # 10 MB of random data + 7 bytes to show padding
 key = os.urandom(32)  # Random Key
@@ -59,8 +59,8 @@ iv = os.urandom(32)  # Random IV
 # Pad with zeroes: -7 % 16 = 9
 data += bytes(-len(data) % 16)
 
-ige_encrypted = tgcrypto.ige256_encrypt(data, key, iv)
-ige_decrypted = tgcrypto.ige256_decrypt(ige_encrypted, key, iv)
+ige_encrypted = tgcryptomax.ige256_encrypt(data, key, iv)
+ige_decrypted = tgcryptomax.ige256_decrypt(ige_encrypted, key, iv)
 
 print(data == ige_decrypted)  # True
 ```
@@ -70,7 +70,7 @@ print(data == ige_decrypted)  # True
 ``` python
 import os
 
-import tgcrypto
+import tgcryptomax
 
 data = os.urandom(10 * 1024 * 1024)  # 10 MB of random data
 
@@ -79,8 +79,8 @@ key = os.urandom(32)  # Random Key
 enc_iv = bytearray(os.urandom(16))  # Random IV
 dec_iv = enc_iv.copy()  # Keep a copy for decryption
 
-ctr_encrypted = tgcrypto.ctr256_encrypt(data, key, enc_iv, bytes(1))
-ctr_decrypted = tgcrypto.ctr256_decrypt(ctr_encrypted, key, dec_iv, bytes(1))
+ctr_encrypted = tgcryptomax.ctr256_encrypt(data, key, enc_iv, bytes(1))
+ctr_decrypted = tgcryptomax.ctr256_decrypt(ctr_encrypted, key, dec_iv, bytes(1))
 
 print(data == ctr_decrypted)  # True
 ```
@@ -91,7 +91,7 @@ print(data == ctr_decrypted)  # True
 import os
 from io import BytesIO
 
-import tgcrypto
+import tgcryptomax
 
 data = BytesIO(os.urandom(10 * 1024 * 1024))  # 10 MB of random data
 
@@ -113,7 +113,7 @@ while True:
         break
 
     # Write 1K encrypted bytes into the encrypted data buffer
-    encrypted_data.write(tgcrypto.ctr256_encrypt(chunk, key, enc_iv, enc_state))
+    encrypted_data.write(tgcryptomax.ctr256_encrypt(chunk, key, enc_iv, enc_state))
 
 # Reset position. We need to read it now
 encrypted_data.seek(0)
@@ -125,7 +125,7 @@ while True:
         break
 
     # Write 1K decrypted bytes into the decrypted data buffer
-    decrypted_data.write(tgcrypto.ctr256_decrypt(chunk, key, dec_iv, dec_state))
+    decrypted_data.write(tgcryptomax.ctr256_decrypt(chunk, key, dec_iv, dec_state))
 
 print(data.getvalue() == decrypted_data.getvalue())  # True
 ```
@@ -137,7 +137,7 @@ print(data.getvalue() == decrypted_data.getvalue())  # True
 ``` python
 import os
 
-import tgcrypto
+import tgcryptomax
 
 data = os.urandom(10 * 1024 * 1024 + 7)  # 10 MB of random data + 7 bytes to show padding
 key = os.urandom(32)  # Random Key
@@ -148,16 +148,16 @@ dec_iv = enc_iv.copy()  # Keep a copy for decryption
 # Pad with zeroes: -7 % 16 = 9
 data += bytes(-len(data) % 16)
 
-cbc_encrypted = tgcrypto.cbc256_encrypt(data, key, enc_iv)
-cbc_decrypted = tgcrypto.cbc256_decrypt(cbc_encrypted, key, dec_iv)
+cbc_encrypted = tgcryptomax.cbc256_encrypt(data, key, enc_iv)
+cbc_decrypted = tgcryptomax.cbc256_decrypt(cbc_encrypted, key, dec_iv)
 
 print(data == cbc_decrypted)  # True
 ```
 
 ## Testing
 
-1. Clone this repository: `git clone https://github.com/pyrogram/tgcrypto`.
-2. Enter the directory: `cd tgcrypto`.
+1. Clone this repository: `git clone https://github.com/5hojib/tgcryptomax`.
+2. Enter the directory: `cd tgcryptomax`.
 3. Install `tox`: `pip3 install tox`
 4. Run tests: `tox`.
 

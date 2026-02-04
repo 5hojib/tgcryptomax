@@ -20,7 +20,7 @@ import os
 import random
 import unittest
 
-import tgcrypto
+import tgcryptomax
 
 
 class TestIGE256Input(unittest.TestCase):
@@ -28,43 +28,43 @@ class TestIGE256Input(unittest.TestCase):
 
     def test_ige256_encrypt_invalid_args_count(self):
         with self.assertRaisesRegex(TypeError, r"function takes exactly \d arguments \(\d given\)"):
-            tgcrypto.ige256_encrypt(os.urandom(16), os.urandom(32))
+            tgcryptomax.ige256_encrypt(os.urandom(16), os.urandom(32))
 
     def test_ige256_encrypt_invalid_args_type(self):
         with self.assertRaisesRegex(TypeError, self.TYPE_ERROR_PATTERN):
-            tgcrypto.ige256_encrypt(1, 2, 3)
+            tgcryptomax.ige256_encrypt(1, 2, 3)
 
     def test_ige256_encrypt_empty_data(self):
         with self.assertRaisesRegex(ValueError, r"Data must not be empty"):
-            tgcrypto.ige256_encrypt(b"", os.urandom(32), os.urandom(32))
+            tgcryptomax.ige256_encrypt(b"", os.urandom(32), os.urandom(32))
 
     def test_ige256_encrypt_invalid_key_size(self):
         with self.assertRaisesRegex(ValueError, r"Key size must be exactly 32 bytes"):
-            tgcrypto.ige256_encrypt(os.urandom(16), os.urandom(31), os.urandom(32))
+            tgcryptomax.ige256_encrypt(os.urandom(16), os.urandom(31), os.urandom(32))
 
     def test_ige256_encrypt_invalid_iv_size(self):
         with self.assertRaisesRegex(ValueError, r"IV size must be exactly 32 bytes"):
-            tgcrypto.ige256_encrypt(os.urandom(16), os.urandom(32), os.urandom(31))
+            tgcryptomax.ige256_encrypt(os.urandom(16), os.urandom(32), os.urandom(31))
 
     def test_ige256_decrypt_invalid_args_count(self):
         with self.assertRaisesRegex(TypeError, r"function takes exactly \d arguments \(\d given\)"):
-            tgcrypto.ige256_decrypt(os.urandom(16), os.urandom(32))
+            tgcryptomax.ige256_decrypt(os.urandom(16), os.urandom(32))
 
     def test_ige256_decrypt_invalid_args_type(self):
         with self.assertRaisesRegex(TypeError, self.TYPE_ERROR_PATTERN):
-            tgcrypto.ige256_decrypt(1, 2, 3)
+            tgcryptomax.ige256_decrypt(1, 2, 3)
 
     def test_ige256_decrypt_empty_data(self):
         with self.assertRaisesRegex(ValueError, r"Data must not be empty"):
-            tgcrypto.ige256_decrypt(b"", os.urandom(32), os.urandom(32))
+            tgcryptomax.ige256_decrypt(b"", os.urandom(32), os.urandom(32))
 
     def test_ige256_decrypt_invalid_key_size(self):
         with self.assertRaisesRegex(ValueError, r"Key size must be exactly 32 bytes"):
-            tgcrypto.ige256_decrypt(os.urandom(16), os.urandom(31), os.urandom(32))
+            tgcryptomax.ige256_decrypt(os.urandom(16), os.urandom(31), os.urandom(32))
 
     def test_ige256_decrypt_invalid_iv_size(self):
         with self.assertRaisesRegex(ValueError, r"IV size must be exactly 32 bytes"):
-            tgcrypto.ige256_decrypt(os.urandom(16), os.urandom(32), os.urandom(31))
+            tgcryptomax.ige256_decrypt(os.urandom(16), os.urandom(32), os.urandom(31))
 
 
 class TestIGE256Random(unittest.TestCase):
@@ -80,8 +80,8 @@ class TestIGE256Random(unittest.TestCase):
         key = {key}
         iv = {iv}
         
-        a = tgcrypto.ige256_{mode1}(data, key, iv)
-        b = tgcrypto.ige256_{mode2}(a, key, iv)
+        a = tgcryptomax.ige256_{mode1}(data, key, iv)
+        b = tgcryptomax.ige256_{mode2}(a, key, iv)
         
         self.assertEqual(data, b)
     """.replace("\n    ", "\n")

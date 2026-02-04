@@ -21,7 +21,7 @@ import random
 import re
 import unittest
 
-import tgcrypto
+import tgcryptomax
 
 
 class TestCBC256NIST(unittest.TestCase):
@@ -51,7 +51,7 @@ class TestCBC256NIST(unittest.TestCase):
         B2EB05E2 C39BE9FC DA6C1907 8C6A9D1B
         """.replace(" ", "").replace("\n", ""))
 
-        self.assertEqual(tgcrypto.cbc256_encrypt(plaintext, key, iv), ciphertext)
+        self.assertEqual(tgcryptomax.cbc256_encrypt(plaintext, key, iv), ciphertext)
 
     def test_cbc256_decrypt(self):
         key = bytes.fromhex("""
@@ -77,7 +77,7 @@ class TestCBC256NIST(unittest.TestCase):
         F69F2445 DF4F9B17 AD2B417B E66C3710
         """.replace(" ", "").replace("\n", ""))
 
-        self.assertEqual(tgcrypto.cbc256_decrypt(ciphertext, key, iv), plaintext)
+        self.assertEqual(tgcryptomax.cbc256_decrypt(ciphertext, key, iv), plaintext)
 
 
 class TestCBC256Cryptography(unittest.TestCase):
@@ -90,7 +90,7 @@ class TestCBC256Cryptography(unittest.TestCase):
         plaintext = bytes.fromhex("{plaintext}")
         ciphertext = bytes.fromhex("{ciphertext}")
     
-        self.assertEqual(tgcrypto.cbc256_{mode}({input}, key, iv), {output})
+        self.assertEqual(tgcryptomax.cbc256_{mode}({input}, key, iv), {output})
     """.replace("\n    ", "\n")
 
     PATTERN = r"COUNT = (\d+)\nKEY = (\w+)\nIV = (\w+)\n(PLAINTEXT|CIPHERTEXT) = (\w+)\n(PLAINTEXT|CIPHERTEXT) = (\w+)"
@@ -137,43 +137,43 @@ class TestCBC256Input(unittest.TestCase):
 
     def test_cbc256_encrypt_invalid_args_count(self):
         with self.assertRaisesRegex(TypeError, r"function takes exactly \d arguments \(\d given\)"):
-            tgcrypto.cbc256_encrypt(os.urandom(16), os.urandom(32))
+            tgcryptomax.cbc256_encrypt(os.urandom(16), os.urandom(32))
 
     def test_cbc256_encrypt_invalid_args_type(self):
         with self.assertRaisesRegex(TypeError, self.TYPE_ERROR_PATTERN):
-            tgcrypto.cbc256_encrypt(1, 2, 3)
+            tgcryptomax.cbc256_encrypt(1, 2, 3)
 
     def test_cbc256_encrypt_empty_data(self):
         with self.assertRaisesRegex(ValueError, r"Data must not be empty"):
-            tgcrypto.cbc256_encrypt(b"", os.urandom(32), os.urandom(16))
+            tgcryptomax.cbc256_encrypt(b"", os.urandom(32), os.urandom(16))
 
     def test_cbc256_encrypt_invalid_key_size(self):
         with self.assertRaisesRegex(ValueError, r"Key size must be exactly 32 bytes"):
-            tgcrypto.cbc256_encrypt(os.urandom(16), os.urandom(31), os.urandom(16))
+            tgcryptomax.cbc256_encrypt(os.urandom(16), os.urandom(31), os.urandom(16))
 
     def test_cbc256_encrypt_invalid_iv_size(self):
         with self.assertRaisesRegex(ValueError, r"IV size must be exactly 16 bytes"):
-            tgcrypto.cbc256_encrypt(os.urandom(16), os.urandom(32), os.urandom(15))
+            tgcryptomax.cbc256_encrypt(os.urandom(16), os.urandom(32), os.urandom(15))
 
     def test_cbc256_decrypt_invalid_args_count(self):
         with self.assertRaisesRegex(TypeError, r"function takes exactly \d arguments \(\d given\)"):
-            tgcrypto.cbc256_decrypt(os.urandom(16), os.urandom(32))
+            tgcryptomax.cbc256_decrypt(os.urandom(16), os.urandom(32))
 
     def test_cbc256_decrypt_invalid_args_type(self):
         with self.assertRaisesRegex(TypeError, self.TYPE_ERROR_PATTERN):
-            tgcrypto.cbc256_decrypt(1, 2, 3)
+            tgcryptomax.cbc256_decrypt(1, 2, 3)
 
     def test_cbc256_decrypt_empty_data(self):
         with self.assertRaisesRegex(ValueError, r"Data must not be empty"):
-            tgcrypto.cbc256_decrypt(b"", os.urandom(32), os.urandom(16))
+            tgcryptomax.cbc256_decrypt(b"", os.urandom(32), os.urandom(16))
 
     def test_cbc256_decrypt_invalid_key_size(self):
         with self.assertRaisesRegex(ValueError, r"Key size must be exactly 32 bytes"):
-            tgcrypto.cbc256_decrypt(os.urandom(16), os.urandom(31), os.urandom(16))
+            tgcryptomax.cbc256_decrypt(os.urandom(16), os.urandom(31), os.urandom(16))
 
     def test_cbc256_decrypt_invalid_iv_size(self):
         with self.assertRaisesRegex(ValueError, r"IV size must be exactly 16 bytes"):
-            tgcrypto.cbc256_decrypt(os.urandom(16), os.urandom(32), os.urandom(15))
+            tgcryptomax.cbc256_decrypt(os.urandom(16), os.urandom(32), os.urandom(15))
 
 
 class TestCBC256Random(unittest.TestCase):
@@ -190,8 +190,8 @@ class TestCBC256Random(unittest.TestCase):
         iv = {iv}
         iv_copy = iv.copy()
 
-        a = tgcrypto.cbc256_{mode1}(data, key, iv)
-        b = tgcrypto.cbc256_{mode2}(a, key, iv_copy)
+        a = tgcryptomax.cbc256_{mode1}(data, key, iv)
+        b = tgcryptomax.cbc256_{mode2}(a, key, iv_copy)
 
         self.assertEqual(data, b)
     """.replace("\n    ", "\n")

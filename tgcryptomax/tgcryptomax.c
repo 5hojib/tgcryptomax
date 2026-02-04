@@ -28,7 +28,7 @@
 #include "cbc256.h"
 
 #define DESCRIPTION "Fast and Portable Cryptography Extension Library for Pyrogram\n" \
-    "TgCrypto is part of Pyrogram, a Telegram MTProto library for Python\n" \
+    "tgcryptomax is part of Pyrogram, a Telegram MTProto library for Python\n" \
     "You can learn more about Pyrogram here: https://pyrogram.org\n"
 
 static PyObject *ige(PyObject *args, uint8_t encrypt) {
@@ -232,12 +232,12 @@ static PyMethodDef methods[] = {
 
 static struct PyModuleDef module = {
     PyModuleDef_HEAD_INIT,
-    "TgCrypto",
+    "tgcryptomax",
     DESCRIPTION,
     -1,
     methods
 };
 
-PyMODINIT_FUNC PyInit_tgcrypto(void) {
+PyMODINIT_FUNC PyInit_tgcryptomax(void) {
     return PyModule_Create(&module);
 }

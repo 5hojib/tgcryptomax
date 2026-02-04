@@ -22,13 +22,13 @@ with open("README.md", encoding="utf-8") as f:
     readme = f.read()
 
 setup(
-    name="TgCrypto",
-    version="1.2.5",
+    name="tgcryptomax",
+    version="0.0.1",
     description="Fast and Portable Cryptography Extension Library for Pyrogram",
     long_description=readme,
     long_description_content_type="text/markdown",
     url="https://github.com/pyrogram",
-    download_url="https://github.com/pyrogram/tgcrypto/releases/latest",
+    download_url="https://github.com/5hojib/tgcryptomax/releases/latest",
     author="Dan",
     author_email="dan@pyrogram.org",
     license="LGPLv3+",
@@ -45,6 +45,9 @@ setup(
         "Programming Language :: Python :: 3.9",
         "Programming Language :: Python :: 3.10",
         "Programming Language :: Python :: 3.11",
+        "Programming Language :: Python :: 3.12",
+        "Programming Language :: Python :: 3.13",
+        "Programming Language :: Python :: 3.14",
         "Programming Language :: Python :: Implementation",
         "Programming Language :: Python :: Implementation :: CPython",
         "Programming Language :: Python :: Implementation :: PyPy",
@@ -58,9 +61,9 @@ setup(
     ],
     keywords="pyrogram telegram crypto cryptography encryption mtproto extension library aes",
     project_urls={
-        "Tracker": "https://github.com/pyrogram/tgcrypto/issues",
+        "Tracker": "https://github.com/5hojib/tgcryptomax/issues",
         "Community": "https://t.me/pyrogram",
-        "Source": "https://github.com/pyrogram/tgcrypto",
+        "Source": "https://github.com/5hojib/tgcryptomax",
         "Documentation": "https://docs.pyrogram.org",
     },
     python_requires="~=3.7",
@@ -69,13 +72,13 @@ setup(
     zip_safe=False,
     ext_modules=[
         Extension(
-            "tgcrypto",
+            "tgcryptomax",
             sources=[
-                "tgcrypto/tgcrypto.c",
-                "tgcrypto/aes256.c",
-                "tgcrypto/ige256.c",
-                "tgcrypto/ctr256.c",
-                "tgcrypto/cbc256.c"
+                "tgcryptomax/tgcryptomax.c",
+                "tgcryptomax/aes256.c",
+                "tgcryptomax/ige256.c",
+                "tgcryptomax/ctr256.c",
+                "tgcryptomax/cbc256.c"
             ]
         )
     ]
