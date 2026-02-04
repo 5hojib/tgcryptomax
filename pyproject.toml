@@ -47,4 +47,4 @@ keywords = ["pyrogram", "telegram", "crypto", "cryptography", "encryption", "mtp
 packages = ["tgcryptomax"]
 
 [tool.cibuildwheel]
-free-threaded-support = true
+enable = ["cpython-freethreading"]

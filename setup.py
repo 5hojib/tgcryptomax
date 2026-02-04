@@ -18,9 +18,6 @@
 
 from setuptools import setup, Extension, find_packages
 
-with open("README.md", encoding="utf-8") as f:
-    readme = f.read()
-
 setup(
     test_suite="tests",
     zip_safe=False,
