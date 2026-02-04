@@ -1,19 +1,18 @@
 [build-system]
-requires = ["setuptools>=61.0", "wheel"]
+requires = ["setuptools>=70.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
 name = "tgcryptomax"
-version = "0.0.3"
+version = "0.0.1"
 description = "Fast and Portable Cryptography Extension Library for Pyrogram"
 readme = "README.md"
 requires-python = ">=3.7"
-license = { text = "LGPLv3+" }
+license = "LGPL-3.0-or-later"
 authors = [{ name = "Dan", email = "dan@pyrogram.org" }]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
     "Intended Audience :: Developers",
-    "License :: OSI Approved :: GNU Lesser General Public License v3 or later (LGPLv3+)",
     "Operating System :: OS Independent",
     "Programming Language :: C",
     "Programming Language :: Python",
