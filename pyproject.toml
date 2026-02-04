@@ -9,6 +9,7 @@ description = "Fast and Portable Cryptography Extension Library for Pyrogram"
 readme = "README.md"
 requires-python = ">=3.7"
 license = "LGPL-3.0-or-later"
+license-files = ["COPYING", "COPYING.lesser", "NOTICE"]
 authors = [{ name = "Dan", email = "dan@pyrogram.org" }]
 classifiers = [
     "Development Status :: 5 - Production/Stable",
@@ -44,7 +45,7 @@ keywords = ["pyrogram", "telegram", "crypto", "cryptography", "encryption", "mtp
 "Documentation" = "https://docs.pyrogram.org"
 
 [tool.setuptools]
-packages = ["tgcryptomax"]
+packages = []
 
 [tool.cibuildwheel]
 enable = ["cpython-freethreading"]

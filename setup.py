@@ -19,7 +19,6 @@
 from setuptools import setup, Extension, find_packages
 
 setup(
-    test_suite="tests",
     zip_safe=False,
     ext_modules=[
         Extension(
