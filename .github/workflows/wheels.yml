@@ -1,30 +1,55 @@
 name: Build and Publish
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
 
 jobs:
   build_wheels:
     name: Build wheels on ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
+
     strategy:
+      fail-fast: false
       matrix:
-        os: [ubuntu-latest, ubuntu-24.04-arm, windows-latest, macos-latest]
+        os:
+          - ubuntu-latest
+          - ubuntu-24.04-arm
+          - windows-latest
+          - macos-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
-      - uses: astral-sh/setup-uv@v5
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
 
-      - name: Install dependencies
-        run: uv pip install --system cibuildwheel build wheel
+      # ✅ Install modern build tooling (fixes Metadata 2.4 issue)
+      - name: Install build dependencies
+        run: |
+          uv pip install --system --upgrade \
+            setuptools \
+            wheel \
+            build \
+            packaging \
+            twine \
+            cibuildwheel
 
+      # ✅ Build wheels (cibuildwheel uses isolated env, upgrade inside too)
       - name: Build wheels
         run: cibuildwheel --output-dir wheelhouse
+        env:
+          CIBW_BEFORE_BUILD: "pip install -U setuptools wheel packaging"
 
+      # ✅ Publish wheels
       - name: Upload wheels to PyPI
         run: uv publish wheelhouse/*.whl
         env:
@@ -35,23 +60,38 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout repository
+        uses: actions/checkout@v4
 
-      - uses: actions/setup-python@v5
+      - name: Setup Python
+        uses: actions/setup-python@v5
         with:
           python-version: "3.13"
 
-      - uses: astral-sh/setup-uv@v5
+      - name: Setup uv
+        uses: astral-sh/setup-uv@v5
 
-      - name: Build and Install for testing
-        run: uv pip install --system . pytest build wheel
+      # ✅ Upgrade build backend tools
+      - name: Install build + test dependencies
+        run: |
+          uv pip install --system --upgrade \
+            setuptools \
+            wheel \
+            build \
+            packaging \
+            pytest
 
+          uv pip install --system .
+
+      # ✅ Run tests
       - name: Run tests
         run: pytest
 
+      # ✅ Build sdist
       - name: Build source distribution
         run: uv build --sdist --out-dir dist
 
+      # ✅ Publish sdist
       - name: Upload source distribution to PyPI
         run: uv publish dist/*.tar.gz
         env:
