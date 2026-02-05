@@ -1,7 +1,8 @@
+import sys
 from setuptools import setup, Extension
 
-setup(
-    ext_modules=[
+setup_kwargs = {
+    "ext_modules": [
         Extension(
             "tgcryptomax",
             sources=[
@@ -13,4 +14,9 @@ setup(
             ]
         )
     ]
-)
+}
+
+if sys.version_info >= (3, 9):
+    setup_kwargs["license_files"] = ["COPYING", "COPYING.lesser", "NOTICE"]
+
+setup(**setup_kwargs)
