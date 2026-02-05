@@ -52,3 +52,6 @@ Documentation = "https://docs.pyrogram.org"
 [tool.setuptools]
 packages = []
 zip-safe = false
+
+[tool.cibuildwheel]
+enable = ["cpython-freethreading"]

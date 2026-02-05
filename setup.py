@@ -19,6 +19,7 @@
 from setuptools import setup, Extension
 
 setup(
+    packages=[],
     ext_modules=[
         Extension(
             "tgcryptomax",
